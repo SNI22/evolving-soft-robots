@@ -15,7 +15,7 @@ class DiskWithLegs(Robot):
     #massdisk = 0.03 * 2.5
     massdisk = 0.06
     #make massRND = fix number of 15 to disable massRND
-    massRND = random.random()*30
+    massRND = 15
     mass = massdisk + massRND/1000
     n_legs = 8
     all_angles = [(360. / n_legs) * (i + 0.5) for i in range(n_legs)]

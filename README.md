@@ -43,6 +43,11 @@ You can adjust the cpu load by editing the config file `configs/coopt.yaml`.
 The eval job will search for checkpoints in the `exps` directory and generate videos and evaluation performance.
 All logs and videos will be visible on wandb in a newly created evolving-soft-robots project.
 
+### Running Experiments with Domain Randomization
+
+- To launch the training job with friction randomization, edit the config file `configs/coopt.yaml`, set `sofa_make_env.friction_coef` value to `@domainRND()`
+- To change the range of friction to be randomized, edit the `@domainRND()` function in `package/python3/make_env.py` to fit your need.
+
 
 ## Performing Model Order Reduction
 
