@@ -96,7 +96,6 @@ RUN python3.7 -m pip install pyautogui==0.9.41
 RUN python2 -m pip install --no-cache-dir evdev==1.6.0 
 RUN python2 -m pip install --no-cache-dir pynput pyautogui
 
-
 COPY ./assets/mor_edits/sceneCreation.py /builds/python/mor/utility/sceneCreation.py
 COPY ./assets/mor_edits/phase1_snapshots.py /builds/python/mor/reduction/template/phase1_snapshots.py
 COPY ./assets/mor_edits/ReadGieFileAndComputeRIDandWeights.py /builds/python/mor/reduction/script/ReadGieFileAndComputeRIDandWeights.py
