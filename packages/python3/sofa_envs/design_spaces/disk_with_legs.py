@@ -133,7 +133,28 @@ class DiskWithLegsSixLegsDiscreteDesignSpace(DiskWithLegsDiscreteDesignSpace):
                     nlegs += 1
             return nlegs <= 6
         return list(filter(_remove_design, designs))
+        
+class DiskWithLegsBaselineDiscreteDesignSpace(DiskWithLegsDiscreteDesignSpace):
+    def __init__(self, ym, paper_ym):
+        DiskWithLegsDiscreteDesignSpace.__init__(self, ym, paper_ym)
+        self._designs = self._filter_designs(self._designs)
+        self.parameter_space = gym.spaces.Discrete(n=len(self._designs))
 
+    def _filter_designs(self, designs):
+        def _remove_design(design):
+            return design == (1, 0, 0, 2, 2, 0, 0, 1)
+        return list(filter(_remove_design, designs))
+
+class DiskWithLegsL1DiscreteDesignSpace(DiskWithLegsDiscreteDesignSpace):
+    def __init__(self, ym, paper_ym):
+        DiskWithLegsDiscreteDesignSpace.__init__(self, ym, paper_ym)
+        self._designs = self._filter_designs(self._designs)
+        self.parameter_space = gym.spaces.Discrete(n=len(self._designs))
+
+    def _filter_designs(self, designs):
+        def _remove_design(design):
+            return design == (1, 0, 0, 2, 2, 0, 0, 0)
+        return list(filter(_remove_design, designs))
 
 class OpenLoopDesignSpace(DesignSpace):
 
@@ -182,4 +203,24 @@ class DiskWithLegsSixLegsDiscreteOpenLoopDesignSpace(OpenLoopDesignSpace, DiskWi
 
     def observation(self, obs):
         obs = DiskWithLegsSixLegsDiscreteDesignSpace.observation(self, obs)
+        return OpenLoopDesignSpace.observation(self, obs)
+        
+class DiskWithLegsBaselineDiscreteOpenLoopDesignSpace(OpenLoopDesignSpace, DiskWithLegsBaselineDiscreteDesignSpace):
+    observation_space = make_ob_space(NLEGS, True)
+    def __init__(self, *args, **kwargs):
+        OpenLoopDesignSpace.__init__(self)
+        DiskWithLegsBaselineDiscreteDesignSpace.__init__(self, *args, **kwargs)
+
+    def observation(self, obs):
+        obs = DiskWithLegsBaselineDiscreteDesignSpace.observation(self, obs)
+        return OpenLoopDesignSpace.observation(self, obs)
+
+class DiskWithLegsL1DiscreteOpenLoopDesignSpace(OpenLoopDesignSpace, DiskWithLegsL1DiscreteDesignSpace):
+    observation_space = make_ob_space(NLEGS, True)
+    def __init__(self, *args, **kwargs):
+        OpenLoopDesignSpace.__init__(self)
+        DiskWithLegsL1DiscreteDesignSpace.__init__(self, *args, **kwargs)
+
+    def observation(self, obs):
+        obs = DiskWithLegsL1DiscreteDesignSpace.observation(self, obs)
         return OpenLoopDesignSpace.observation(self, obs)
