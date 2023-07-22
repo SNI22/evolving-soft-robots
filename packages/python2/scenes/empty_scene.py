@@ -8,7 +8,7 @@ import numpy
 import random
 
 def initcheck(friction):
-    f = open('./initcheck_purple_rnd18_1.txt','a')
+    f = open('./"NAMEOFYOURRUN".txt','a') #Name of your run.txt will save all the friction range it trained upon
     line = numpy.array([friction])
     numpy.savetxt(f, line, delimiter=",", fmt='%.4f')
     f.close()
@@ -28,11 +28,9 @@ class EmptyScene(Scene):
         self.debug = self.sim_params['debug']
         self.friction_coef = self.sim_params['friction_coef']
         
-        friction_level = float(random.randint(65,130))/100
-        self.friction_coef = friction_level
-        # print("friction_coef is " + str(friction_coef))
-
-        initcheck(self.friction_coef)
+        #friction_level = float(random.randint(65,130))/100
+        #self.friction_coef = friction_level
+        #initcheck(self.friction_coef)
 
         required_plugins = [
             'SoftRobots',
