@@ -4,7 +4,15 @@ import os
 import json
 from .core import Scene
 from stlib.physics.rigid import Floor
+import numpy 
+import random
 
+def initcheck(friction):
+    f = open('./initcheck_purple_rnd18_1.txt','a')
+    line = numpy.array([friction])
+    numpy.savetxt(f, line, delimiter=",", fmt='%.4f')
+    f.close()
+    return()
 
 class EmptyScene(Scene):
     """This class handles the scene creation of the robot model."""
@@ -19,6 +27,13 @@ class EmptyScene(Scene):
         self.with_gui = self.sim_params['with_gui']
         self.debug = self.sim_params['debug']
         self.friction_coef = self.sim_params['friction_coef']
+        
+        friction_level = float(random.randint(65,130))/100
+        self.friction_coef = friction_level
+        # print("friction_coef is " + str(friction_coef))
+
+        initcheck(self.friction_coef)
+
         required_plugins = [
             'SoftRobots',
             'ModelOrderReduction',
