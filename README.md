@@ -4,6 +4,8 @@
 
 This repository contains code for the paper [Sim-to-Real Transfer of Co-Optimized Soft Robot Crawlers]().
 
+The paper was an extention to the previous paper [Soft Robots Learn to Crawl: Jointly Optimizing Design and Control with Sim-to-Real Transfer](https://arxiv.org/abs/2202.04575)
+
 It provides the code for model order reduction, co-optimiztion of design and control, and testing the optimized design-control pairs in simulation.
 
 
