@@ -2,7 +2,7 @@
 
 ![](frames.png)
 
-This repository contains code for the paper [Soft Robots Learn to Crawl: Jointly Optimizing Design and Control with Sim-to-Real Transfer](https://arxiv.org/abs/2202.04575).
+This repository contains code for the paper [Sim-to-Real Transfer of Co-Optimized Soft Robot Crawlers]().
 
 It provides the code for model order reduction, co-optimiztion of design and control, and testing the optimized design-control pairs in simulation.
 
@@ -45,10 +45,13 @@ All logs and videos will be visible on wandb in a newly created evolving-soft-ro
 
 ### Running Experiments with Domain Randomization
 
-- To launch the training job with friction randomization, edit the config file `configs/coopt.yaml`, set `sofa_make_env.friction_coef` value to `@domainRND()`
-- To change the range of friction to be randomized, edit the `@domainRND()` function in `package/python3/make_env.py` to fit your need.
+- To launch the training job with friction randomization, edit the python2 file `evolving-soft-robots/packages/python2/scene/emptyscene.py`, uncomment line 31,32 to enable domain randomization on the range of friction you specified on line 32.
+- To save the actual friction trained in the complete run. First edit line 11 of `evolving-soft-robots/packages/python2/scene/emptyscene.py` to save the friction to the file name you wanted. Uncomment line 33 to enable the feature.
+- Although it is hard to specify a seed when using such method to enable friction randomization in python2. By using python2 built in I/O features and saved friction data, repeatability of the friction randomization can be ensured.
+## Running a non co-optimized experiment (Training the contoller only using)
 
-
+-  This framework now provides capability to train controllers on the L1 or the baseline robot. Simply change the `sofa_make_env.design_space` entry in `/configs/coopt.yaml` to `DiskWithLegsL1DiscreteOpenLoopDesignSpace` `DiskWithLegsBaselineDiscreteOpenLoopDesignSpace` respectively. 
+-  To return to the full co-optimization scheme, set `sofa_make_env.design_space` entry in `/configs/coopt.yaml` to `DiskWithLegsSixLegsDiscreteOpenLoopDesignSpace`
 ## Performing Model Order Reduction
 
 This repository contains the reduced order models used in this paper, as well as code to create your own reductions.
